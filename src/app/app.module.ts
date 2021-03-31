@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FarmModule } from './farm/farm.module';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { FarmModule } from './farm/farm.module';
     BrowserModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCMstW-OESgmJcqEmAeVBYJygnQlfo35Xo'
+      apiKey: environment.mapsApiKey
     }),
     MaterialModule,
     FlexLayoutModule,
