@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'mass-farming-client';
+  title = 'Local Farmers in Massachusetts';
+  lat = 42.360081;
+  lon = -71.058884;
 }
