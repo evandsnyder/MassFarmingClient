@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlAddress: 'http://localhost:5000',
+  urlAddress: 'https://localhost:44377',
   mapsApiKey: 'AIzaSyCMstW-OESgmJcqEmAeVBYJygnQlfo35Xo'
 };
 
