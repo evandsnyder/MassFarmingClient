@@ -1,0 +1,45 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.time-select {
+    width: 65px;
+}
+
+.picker-form-field .mat-form-field-wrapper {
+    text-align: center;
+    margin-bottom: -1.3em;
+    margin-top: 0;
+}
+
+.picker-form-field .mat-form-field-infix
+{
+    padding: 8px;
+}
+.time-top-button {
+    border-radius: 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.time-bot-button {
+    border-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin-top: 0;
+}
+
+.picker-form-field .mat-form-field-outline-start, .picker-form-field .mat-form-field-outline-end{
+    border-radius: 0;
+}
+
+.mat-button-toggle:active {
+    color: primary;
+}

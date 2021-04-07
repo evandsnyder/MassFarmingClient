@@ -1,0 +1,92 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-card fxFlex.xs="100%" fxFlex="500px" fxLayout="column wrap">
+        <mat-card-title>New Farm</mat-card-title>
+        <mat-card-content fxFlex.xs="100%" fxFlex="500px" fxLayout="column wrap">
+            <mat-form-field appearance="outline">
+                <mat-label>Farm Name</mat-label>
+                <input matInput placeholder="Farm Name" [formControl]="farmName" type="text" required/>
+                <!-- Farm Name -->
+            </mat-form-field>
+
+            <mat-form-field id="Name">
+                <mat-label>Owner  Name</mat-label>
+                <input matInput placeholder="ownerName" [formControl]="ownerName" type="text" required/>
+            </mat-form-field>
+            <mat-form-field id="Email">
+                <mat-label>Contact Email</mat-label>
+                <input matInput placeholder="example@gmail.com" [formControl]="contactEmail" type="email" required/>
+            </mat-form-field>
+            <mat-form-field id="Url">
+                <mat-label>Website URL</mat-label>
+                <input matInput placeholder="https://www.example.com" [(ngModel)]="websiteUrl" type="url" />
+            </mat-form-field>
+
+            <mat-form-field id="Description" appearance="outline">
+                <mat-label>Farm Description</mat-label>
+                <textarea matInput placeholder="Farm description..." [(ngModel)]="description"></textarea>
+            </mat-form-field>
+
+            <mat-checkbox [ngModel]="doesDeliver">Delivery</mat-checkbox>
+            <mat-checkbox [(ngModel)]="isContactable">Display my contact information</mat-checkbox>
+
+            <mat-form-field appearance="outline" id="type">
+                <mat-label *ngIf="!availableCategories" class="loading">
+                    <span>Loading...</span>
+                    <mat-spinner class="spinner" diameter="20"></mat-spinner>
+                </mat-label>
+                <mat-label *ngIf="availableCategories">Farm Types</mat-label>
+                <mat-select [formControl]="selectControl" multiple>
+                    <mat-select-trigger>
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let value of selectControl.value" [removable]="true"
+                                (removed)="removeSelection(value)">
+                                {{findFarmCategory(value)}} <mat-icon matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+                        </mat-chip-list>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let item of this.availableCategories" (onSelectionChange)="change($event)"
+                        [value]="item.farmTypeId">{{item.category}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div *ngFor="let sched of openSchedules">
+                <app-time-picker></app-time-picker>
+            </div>
+
+            <div>
+                <button mat-icon-button color="primary" (click)="addNewSchedule()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+                <span>Add additional schedule</span>
+            </div>
+
+            <mat-form-field id="Address1">
+                <mat-label>Address 1</mat-label>
+                <input matInput placeholder="Address 1" [formControl]="address1" type="text" required />
+            </mat-form-field>
+            <mat-form-field id="Address2">
+                <mat-label>Address 2</mat-label>
+                <input matInput placeholder="Address 2" [(ngModel)]="address2" type="text" />
+            </mat-form-field>
+            <mat-form-field id="City">
+                <mat-label>City</mat-label>
+                <input matInput placeholder="City" [formControl]="city" type="text" required />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>State</mat-label>
+                <mat-select [formControl]="state" required>
+                    <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="">Please select your state</mat-error>
+            </mat-form-field>
+            <mat-form-field id="Zip">
+                <mat-label>Zip Code</mat-label>
+                <input matInput placeholder="12345" [formControl]="zip" type="text" required/>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-flat-button color="primary" (click)="createNewFarm()" [disabled]="formIsInvalid()">Submit</button>
+            <button mat-flat-button color="warn">Cancel</button>
+        </mat-card-actions>
+    </mat-card>
+</section>

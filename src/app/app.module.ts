@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,7 @@ import { FarmModule } from './farm/farm.module';
 import { environment } from 'src/environments/environment';
 import { NotFoundComponent } from './error-pages/not-found/not-found.component';
 import { ServerErrorComponent } from './error-pages/server-error/server-error.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,10 @@ import { ServerErrorComponent } from './error-pages/server-error/server-error.co
     FlexLayoutModule,
     RoutingModule,
     HttpClientModule,
-    FarmModule
+    FarmModule,
+    ComponentsModule
   ],
-  providers: [],
+  providers: [GoogleMapsAPIWrapper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

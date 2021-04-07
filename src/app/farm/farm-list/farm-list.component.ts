@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RepositoryService } from '../../shared/repository.service';
 import { Farm } from '../../_interface/farm.model';
 import { ErrorHandlerService } from '../../shared/error-handler.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-farm-list',
@@ -11,7 +12,7 @@ import { ErrorHandlerService } from '../../shared/error-handler.service';
 export class FarmListComponent implements OnInit {
   farms: Farm[];
 
-  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService) { }
+  constructor(private repoService: RepositoryService, private errorService: ErrorHandlerService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllFarms();
@@ -27,4 +28,12 @@ export class FarmListComponent implements OnInit {
     })
   }
 
+  public redirectToDetails = (id: string) => {
+    let url: string = `/farm/details/${id}`
+    this.router.navigate([url]);
+  }
+
+  public redirectToCreateFarm = () => {
+    this.router.navigate(['/farm/new']);
+  }
 }

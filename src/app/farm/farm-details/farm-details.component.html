@@ -1,0 +1,24 @@
+<section fxLayout="row wrap" fxLayoutAlign="center center">
+    <p>{{farm.farmId}}</p><br>
+    <p>{{farm.farmName}}</p><br>
+    <p>{{farm.ownerName}}</p><br>
+    <p *ngIf="farm.isActive">
+        farm is active
+    </p>
+    <p *ngFor="let c of farm.categories">
+        {{c.farmType.category}}
+    </p>
+    
+
+    <div *ngIf="farm.isContactable">
+        <p>{{farm.ownerName}}</p>
+        <p>{{farm.contactEmail}}</p>
+        <a href="{{farm.websiteUrl}}">{{farm.websiteUrl}}</a>
+    </div>
+    <table>
+        <tr *ngFor="let sched of farm.schedules">
+            <td>{{getDayOfWeek(sched.dayOfWeek)}}:</td>
+            <td>{{formatTime(sched.startTime)}} - {{formatTime(sched.endTime)}}</td>
+        </tr>
+    </table>
+</section>

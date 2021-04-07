@@ -3,13 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FarmListComponent } from './farm-list/farm-list.component';
 import { FarmRoutingModule } from './farm-routing/farm-routing.module';
 import { MaterialModule } from '../material/material.module';
+import { FarmDetailsComponent } from './farm-details/farm-details.component';
+import { FarmCreateComponent } from './farm-create/farm-create.component';
+import { ReactiveFormsModule} from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
-  declarations: [FarmListComponent],
+  declarations: [FarmListComponent, FarmDetailsComponent, FarmCreateComponent],
   imports: [
     CommonModule,
     FarmRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    ComponentsModule
   ],
 })
 export class FarmModule { }

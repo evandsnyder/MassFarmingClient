@@ -1,13 +1,11 @@
 import { Address } from "./address.model";
-import { IsA } from "./isA.model";
+import { FarmType } from "./farmType.model";
 import { Schedule } from "./schedule.model";
 
-export interface Farm{
-    farmId: string;
+export interface FarmForCreation{
     farmName: string;
     ownerName: string;
     description: string;
-    isActive: boolean;
     doesDeliver: boolean;
     websiteUrl: string;
     contactEmail: string;
@@ -15,6 +13,6 @@ export interface Farm{
     
     address: Address;
 
-    categories?: IsA[];
+    categories?: FarmType[];
     schedules?: Schedule[];
 }
