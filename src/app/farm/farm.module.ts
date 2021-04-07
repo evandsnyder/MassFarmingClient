@@ -7,6 +7,10 @@ import { FarmDetailsComponent } from './farm-details/farm-details.component';
 import { FarmCreateComponent } from './farm-create/farm-create.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [FarmListComponent, FarmDetailsComponent, FarmCreateComponent],
@@ -15,7 +19,11 @@ import { ComponentsModule } from '../components/components.module';
     FarmRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.mapsApiKey
+    }),
+    FlexLayoutModule
   ],
 })
 export class FarmModule { }

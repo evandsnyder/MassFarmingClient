@@ -1,9 +1,15 @@
-<button mat-button (click)="redirectToCreateFarm()">
+<section fxLayout="column">
+<button mat-raised-button (click)="redirectToCreateFarm()" color="primary">
     Add New Farm
 </button>
-<mat-list>
-    <mat-list-item *ngFor="let farm of farms">
-        <button (click)="redirectToDetails(farm.farmId)">{{farm.farmName}} Details</button>
-        <p>{{farm.farmId}}</p>
-    </mat-list-item>
-</mat-list>
+<div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+    <mat-list>
+        <mat-list-item *ngFor="let farm of farms" (click)="redirectToDetails(farm.farmId)">
+            <span>{{farm.farmName}}</span>
+        </mat-list-item>
+    </mat-list>
+    <agm-map [latitude]="42.4072" [longitude]="-71.3824" >
+        <agm-marker *ngFor="let farm of farms" [latitude]="farm.address.latitude" [longitude]="farm.address.longitude" ></agm-marker>
+    </agm-map>
+</div>
+</section>

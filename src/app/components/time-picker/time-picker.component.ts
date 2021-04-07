@@ -72,7 +72,6 @@ export class TimePickerComponent implements OnInit {
         ,endTime: this.prepareTime(this.closeHour, this.closeMinute, this.closeAm)
       });
     }
-    console.log(schedules);
     return schedules;
 
 

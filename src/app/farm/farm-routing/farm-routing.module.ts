@@ -6,7 +6,7 @@ import { FarmDetailsComponent } from '../farm-details/farm-details.component';
 import { FarmCreateComponent } from '../farm-create/farm-create.component';
 
 const routes: Routes = [
-  {path: 'farms', component: FarmListComponent},
+  {path: '', component: FarmListComponent},
   {path: 'details/:id', component: FarmDetailsComponent},
   {path: 'new', component: FarmCreateComponent}
 ]

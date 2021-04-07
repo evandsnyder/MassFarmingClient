@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Local Farmers in Massachusetts';
-  lat = 42.360081;
-  lon = -71.058884;
 }

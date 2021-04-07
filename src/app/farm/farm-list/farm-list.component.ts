@@ -29,11 +29,11 @@ export class FarmListComponent implements OnInit {
   }
 
   public redirectToDetails = (id: string) => {
-    let url: string = `/farm/details/${id}`
+    let url: string = `/farms/details/${id}`
     this.router.navigate([url]);
   }
 
   public redirectToCreateFarm = () => {
-    this.router.navigate(['/farm/new']);
+    this.router.navigate(['/farms/new']);
   }
 }

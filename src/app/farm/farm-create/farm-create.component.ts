@@ -8,7 +8,6 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { TimePickerComponent } from 'src/app/components/time-picker/time-picker.component';
 import { Schedule } from 'src/app/_interface/schedule.model';
 import { FarmForCreation } from 'src/app/_interface/farmForCreation.model';
-import { Address } from 'src/app/_interface/address.model';
 import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import { Location } from '@angular/common';
@@ -34,11 +33,11 @@ const appearance: MatFormFieldDefaultOptions = {
 export class FarmCreateComponent implements OnInit {
   @ViewChildren(TimePickerComponent) schedules: QueryList<TimePickerComponent>;
 
-  public states: any = ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
-  'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH',
-  'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC',
-  'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT',
-  'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'];
+  public states: any = ['AK', 'AL', 'AR', 'AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL',
+    'FM', 'GA', 'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MH',
+    'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH',
+    'OK', 'OR', 'PA', 'PR', 'PW', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VI', 'VT', 'WA',
+    'WI', 'WV', 'WY'];
 
   public availableCategories: FarmType[];
 
@@ -80,12 +79,32 @@ export class FarmCreateComponent implements OnInit {
   }
 
   public createNewFarm = () => {
-    // Get all of the schedules ready...
+    this.generateNewFarm();
+
+  }
+
+  private async generateNewFarm() {
     let allSchedules: Schedule[] = [];
     this.schedules.forEach(schedule => allSchedules = allSchedules.concat(schedule.updateSchedules()));
 
-    // Prepare the address
-    let address = this.findLocation();
+    // Build the address first:
+    let full_address = '';
+    full_address += `${this.address1.value} `;
+    full_address += `${this.address2 ? this.address2 : ''} `;
+    full_address += `${this.state.value} `;
+    full_address += `${this.zip.value} `;
+    let lat: string;
+    let lon: string;
+
+    
+
+    let loc = await this.getGeocode(full_address);
+    lat = loc.lat;
+    lon = loc.lon;
+
+    console.log(lat)
+    console.log(lon)
+
     let newFarm: FarmForCreation = {
       farmName: this.farmName.value,
       ownerName: this.ownerName.value,
@@ -95,7 +114,15 @@ export class FarmCreateComponent implements OnInit {
       isContactable: this.isContactable,
       doesDeliver: this.doesDeliver,
       schedules: allSchedules,
-      address: address,
+      address: {
+        address1: this.address1.value,
+        address2: this.address2,
+        city: this.city.value,
+        state: this.state.value,
+        zip: this.zip.value,
+        latitude: `${lat}`,
+        longitude: `${lon}`
+      },
       categories: this.categories
     };
 
@@ -109,38 +136,25 @@ export class FarmCreateComponent implements OnInit {
         });
   }
 
-  private findLocation(): Address {
-    // Build the address first:
-    let full_address = '';
-    full_address += `${this.address1} `;
-    full_address += `${this.address2 ? this.address2 : ''} `;
-    full_address += `${this.state} `;
-    full_address += `${this.zip} `;
-    let lat: string;
-    let lon: string;
+  private async getGeocode(full_address: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let lat; let lon;
+      if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
 
-    if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-
-    this.geocoder.geocode({ 'address': full_address }, (results, status) => {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0].geometry.location) {
-          lat = results[0].geometry.location.lat();
-          lon = results[0].geometry.location.lng();
+      console.log(full_address);
+      this.geocoder.geocode({ 'address': full_address }, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0].geometry.location) {
+            lat = results[0].geometry.location.lat();
+            lon = results[0].geometry.location.lng();
+            resolve({ 'lat': lat, 'lon': lon });
+          }
+        } else {
+          reject("Could not find your address, are you sure it is correct?")
         }
-      } else {
-        console.log("Could not find your address, are you sure it is correct?")
-      }
+      })
     })
 
-    return {
-      address1: this.address1.value,
-      address2: this.address2,
-      city: this.city.value,
-      state: this.state.value,
-      zip: this.zip.value,
-      latitude: lat,
-      longitude: lon
-    };
   }
 
 
@@ -191,11 +205,11 @@ export class FarmCreateComponent implements OnInit {
 
   public formIsInvalid(): boolean {
     return (this.farmName.invalid && this.farmName.value == '') ||
-    (this.ownerName.invalid && this.ownerName.value == '') ||
-    (this.contactEmail.invalid && this.contactEmail.value == '') ||
-    (this.address1.invalid && this.address1.value == '') ||
-    (this.city.invalid && this.city.value == '') ||
-    (this.state.invalid && this.state.value == '') ||
-    (this.zip.invalid && this.zip.value == '');
+      (this.ownerName.invalid && this.ownerName.value == '') ||
+      (this.contactEmail.invalid && this.contactEmail.value == '') ||
+      (this.address1.invalid && this.address1.value == '') ||
+      (this.city.invalid && this.city.value == '') ||
+      (this.state.invalid && this.state.value == '') ||
+      (this.zip.invalid && this.zip.value == '');
   }
 }

@@ -8,7 +8,6 @@ import { MaterialModule } from './material/material.module';
 import { LayoutComponent } from './layout/layout.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingModule } from './routing/routing.module';
-import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FarmModule } from './farm/farm.module';
@@ -21,7 +20,6 @@ import { ComponentsModule } from './components/components.module';
   declarations: [
     AppComponent,
     LayoutComponent,
-    HomeComponent,
     HeaderComponent,
     NotFoundComponent,
     ServerErrorComponent

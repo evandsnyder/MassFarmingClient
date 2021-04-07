@@ -1,0 +1,29 @@
+button {
+    margin-bottom: 10px;
+}
+
+agm-map {
+    height: 500px;
+    width: 100%;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-radius: 0 3px 3px 0;
+}
+
+mat-list {
+    height: 100%;
+    border: 1px solid black;
+    width: 20%;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+mat-list-item {
+    border-bottom: 1px solid black;
+    
+}
+
+.mat-list:last-child {
+    border-bottom: none !important;
+}
