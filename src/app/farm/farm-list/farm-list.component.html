@@ -1,15 +1,23 @@
 <section fxLayout="column">
-<button mat-raised-button (click)="redirectToCreateFarm()" color="primary">
-    Add New Farm
-</button>
-<div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-    <mat-list>
-        <mat-list-item *ngFor="let farm of farms" (click)="redirectToDetails(farm.farmId)">
-            <span>{{farm.farmName}}</span>
-        </mat-list-item>
-    </mat-list>
-    <agm-map [latitude]="42.4072" [longitude]="-71.3824" >
-        <agm-marker *ngFor="let farm of farms" [latitude]="farm.address.latitude" [longitude]="farm.address.longitude" ></agm-marker>
-    </agm-map>
-</div>
+    <button mat-raised-button (click)="redirectToCreateFarm()" color="primary">
+        Add New Farm
+    </button>
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let farm of farms" (click)="moveToFarm(farm)">
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <h2>{{farm.farmName}}</h2>
+                    <mat-button (click)="redirectToDetails(farm.farmId)"><mat-icon>launch</mat-icon></mat-button>
+                </div>
+                <div fxLayout="column wrap">
+                    <span>{{farm.address.address1}}</span>
+                    <span>{{farm.address.city}}, {{farm.address.state}} {{farm.address.zip}}</span>
+                </div>
+            </mat-list-option>
+        </mat-selection-list>
+        <agm-map [latitude]="location.latitude" [longitude]="location.longitude" [(zoom)]="location.zoom">
+            <agm-marker *ngFor="let farm of farms" [latitude]="farm.address.latitude"
+                [longitude]="farm.address.longitude"></agm-marker>
+        </agm-map>
+    </div>
 </section>
