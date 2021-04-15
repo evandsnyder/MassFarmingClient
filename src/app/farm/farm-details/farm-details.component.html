@@ -1,24 +1,32 @@
-<section fxLayout="row wrap" fxLayoutAlign="center center">
-    <p>{{farm.farmId}}</p><br>
-    <p>{{farm.farmName}}</p><br>
-    <p>{{farm.ownerName}}</p><br>
-    <p *ngIf="farm.isActive">
-        farm is active
-    </p>
-    <p *ngFor="let c of farm.categories">
-        {{c.farmType.category}}
-    </p>
-    
+<section fxLayout="column">
+    <mat-spinner fxLayout="row" fxLayoutAlign="center center" *ngIf="!loaded"></mat-spinner>
+    <div *ngIf="loaded">
+        <div fxLayout="row" fxLayoutAlign="space-between">
+            <h1>{{farm.farmName}}</h1>
+            <button mat-raised-button color="primary" id="edit-button" (click)="redirectToEditFarm(farm.farmId)">
+                <mat-icon>edit</mat-icon><span>Edit</span>
+            </button>
+        </div>
 
-    <div *ngIf="farm.isContactable">
-        <p>{{farm.ownerName}}</p>
-        <p>{{farm.contactEmail}}</p>
-        <a href="{{farm.websiteUrl}}">{{farm.websiteUrl}}</a>
+        <mat-chip-list>
+            <mat-chip *ngFor="let c of farm.categories">
+                <mat-icon color="primary">local_offer</mat-icon> {{c.farmType.category}}
+            </mat-chip>
+        </mat-chip-list>
+
+        <p>{{farm.description}}</p>
+
+        <div *ngIf="farm.isContactable">
+            <p *ngIf="farm.ownerName">Owner: {{farm.ownerName}}</p>
+            <p *ngIf="farm.contactEmail">Email: <a href="mailto:{{farm.contactEmail}}">{{farm.contactEmail}}</a><br></p>
+            <p *ngIf="farm.websiteUrl">Website: <a href="{{farm.websiteUrl}}">{{farm.websiteUrl}}</a></p>
+        </div>
+        <table *ngIf="farm.schedules?.length > 0" mat-table>
+            <caption>Hours</caption>
+            <tr *ngFor="let sched of farm.schedules">
+                <td>{{getDayOfWeek(sched.dayOfWeek)}}:</td>
+                <td>{{formatTime(sched.startTime)}} - {{formatTime(sched.endTime)}}</td>
+            </tr>
+        </table>
     </div>
-    <table>
-        <tr *ngFor="let sched of farm.schedules">
-            <td>{{getDayOfWeek(sched.dayOfWeek)}}:</td>
-            <td>{{formatTime(sched.startTime)}} - {{formatTime(sched.endTime)}}</td>
-        </tr>
-    </table>
 </section>

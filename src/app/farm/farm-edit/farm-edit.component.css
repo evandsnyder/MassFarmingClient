@@ -1,0 +1,19 @@
+.mat-form-field {
+     display: inherit !important; 
+}
+
+.row-item {
+    width: 50%;
+}
+
+:host ::ng-deep .row-item div.mat-form-field-wrapper{
+    flex-grow: 1 !important;
+}
+
+.btn-spacer{
+    flex: 1 1 auto;
+}
+
+.form-actions > button{
+    margin: 4px;
+}

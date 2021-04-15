@@ -1,68 +1,85 @@
-<section fxLayout="row wrap" fxLayoutAlign="left center" fxLayoutGap="10px">
+<section fxLayout="row nowrap" fxLayoutAlign="left center" fxLayoutGap="10px">
     <div fxLayout="column" class="day-select">
         <div *ngFor="let day of weekdayList">
             <mat-checkbox value="{{day.id}}" [(ngModel)]="day.selected">{{day.name}}</mat-checkbox>
         </div>
     </div>
 
-    <div fxLayout="column" class="time-select">
-        <button mat-flat-button color="primary" (click)="incrementHour('openHour')" class="time-top-button">
-            <mat-icon>expand_less</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" class="picker-form-field">
-            <input matInput type="number" min="1" max="12" [ngModel]="openHour" readonly/>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="decrementHour('openHour')" class="time-bot-button">
-            <mat-icon>expand_more</mat-icon>
-        </button>
-    </div>
-    <div fxLayout="column" class="time-select">
-        <button mat-flat-button color="primary" (click)="incrementMinute('openMinute')" class="time-top-button">
-            <mat-icon>expand_less</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" class="picker-form-field">
-            <input matInput type="number" min="0" max="59" [ngModel]="openMinute" readonly />
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="decrementMinute('openMinute')" class="time-bot-button">
-            <mat-icon>expand_more</mat-icon>
-        </button>
+    <div fxLayout="column">
+        <div fxLayout="row" class="time-label">
+            <span>Open Time</span>
+        </div>
+        <div fxLayout="row">
+            <div fxLayout="column" class="time-select">
+                <button mat-flat-button color="primary" (click)="incrementHour('openHour')" class="time-top-button">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+                <mat-form-field appearance="outline" class="picker-form-field">
+                    <input matInput type="number" min="1" max="12" [ngModel]="openHour" readonly />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="decrementHour('openHour')" class="time-bot-button">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+            <div fxLayout="column" class="time-select">
+                <button mat-flat-button color="primary" (click)="incrementMinute('openMinute')" class="time-top-button">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+                <mat-form-field appearance="outline" class="picker-form-field">
+                    <input matInput type="number" min="0" max="59" [ngModel]="openMinute" readonly />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="decrementMinute('openMinute')"
+                    class="time-bot-button">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+
+
+            <div fxLayout="column" class="time-toggle" fxLayoutAlign="center center">
+                <mat-button-toggle-group vertical value="am">
+                    <mat-button-toggle value="am" color="primary" (click)="openAm=true">AM</mat-button-toggle>
+                    <mat-button-toggle value="pm" (click)="openAm=false">PM</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
     </div>
 
-    <div fxLayout="column" class="time-toggle">
-        <mat-button-toggle-group vertical value="am">
-            <mat-button-toggle value="am" color="primary" (click)="openAm=true">AM</mat-button-toggle>
-            <mat-button-toggle value="pm" (click)="openAm=false">PM</mat-button-toggle>
-        </mat-button-toggle-group>
-    </div>
-
-    <div fxLayout="column" class="time-select">
-        <button mat-flat-button color="primary" (click)="incrementHour('closeHour')" class="time-top-button">
-            <mat-icon>expand_less</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" class="picker-form-field">
-            <input matInput type="number" min="1" max="12" [ngModel]="closeHour" readonly />
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="decrementHour('closeHour')" class="time-bot-button">
-            <mat-icon>expand_more</mat-icon>
-        </button>
-    </div>
-    <div fxLayout="column" class="time-select">
-        <button mat-flat-button color="primary" (click)="incrementMinute('closeMinute')" class="time-top-button">
-            <mat-icon>expand_less</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" class="picker-form-field">
-            <input matInput type="number" min="0" max="59" [ngModel]="closeMinute" readonly/>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="decrementMinute('closeMinute')" class="time-bot-button">
-            <mat-icon>expand_more</mat-icon>
-        </button>
-    </div>
-
-    <div fxLayout="column" class="time-toggle">
-        <mat-button-toggle-group vertical value="pm">
-            <mat-button-toggle value="am" color="primary" (click)="closeAm=true" >AM</mat-button-toggle>
-            <mat-button-toggle value="pm" (click)="closeAm=false">PM</mat-button-toggle>
-        </mat-button-toggle-group>
+    <div fxLayout="column">
+        <div fxLayout="row" class="time-label">
+            <span>Close Time</span>
+        </div>
+        <div fxLayout="row">
+            <div fxLayout="column" class="time-select">
+                <button mat-flat-button color="primary" (click)="incrementHour('closeHour')" class="time-top-button">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+                <mat-form-field appearance="outline" class="picker-form-field">
+                    <input matInput type="number" min="1" max="12" [ngModel]="closeHour" readonly />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="decrementHour('closeHour')" class="time-bot-button">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+            <div fxLayout="column" class="time-select">
+                <button mat-flat-button color="primary" (click)="incrementMinute('closeMinute')"
+                    class="time-top-button">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+                <mat-form-field appearance="outline" class="picker-form-field">
+                    <input matInput type="number" min="0" max="59" [ngModel]="closeMinute" readonly />
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="decrementMinute('closeMinute')"
+                    class="time-bot-button">
+                    <mat-icon>expand_more</mat-icon>
+                </button>
+            </div>
+            <div fxLayout="column" class="time-toggle" fxLayoutAlign="center center">
+                <mat-button-toggle-group vertical value="pm">
+                    <mat-button-toggle value="am" color="primary" (click)="closeAm=true">AM</mat-button-toggle>
+                    <mat-button-toggle value="pm" (click)="closeAm=false">PM</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
     </div>
 </section>
 <mat-divider></mat-divider>

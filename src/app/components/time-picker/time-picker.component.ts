@@ -8,7 +8,7 @@ import { Schedule } from 'src/app/_interface/schedule.model';
   encapsulation: ViewEncapsulation.None
 })
 export class TimePickerComponent implements OnInit {
-  @Input() schedule: any[];
+  @Input() schedule?: Schedule[];
   public openHour: number = 1;
   public openMinute: number = 0;
   public openAm: boolean = true;
@@ -31,6 +31,19 @@ export class TimePickerComponent implements OnInit {
       { "name": "Friday", "id": 5, "selected": false },
       { "name": "Saturday", "id": 6, "selected": false }
     ];
+    if (this.schedule && this.schedule.length > 0) {
+      this.openHour = +(this.schedule[0].startTime.substring(0,2)) % 12
+      this.openMinute = +(this.schedule[0].startTime.substring(2))
+      this.closeHour = +(this.schedule[0].endTime.substring(0,2)) % 12
+      this.closeMinute = +(this.schedule[0].endTime.substring(2))
+
+      this.openAm = this.openHour > 12  ? false : true
+      this.closeAm = this.closeHour > 12  ? false : true
+      this.schedule.forEach(sched => {
+        this.weekdayList[sched.dayOfWeek].selected = true;
+      })
+    }
+
   }
 
   public incrementHour = (v: string) => {
@@ -68,13 +81,11 @@ export class TimePickerComponent implements OnInit {
     for (let day of this.selectedDays()) {
       schedules.push({
         dayOfWeek: day
-        ,startTime: this.prepareTime(this.openHour, this.openMinute, this.openAm)
-        ,endTime: this.prepareTime(this.closeHour, this.closeMinute, this.closeAm)
+        , startTime: this.prepareTime(this.openHour, this.openMinute, this.openAm)
+        , endTime: this.prepareTime(this.closeHour, this.closeMinute, this.closeAm)
       });
     }
     return schedules;
-
-
   }
 
   private prepareTime(hour: number, minute: number, am: boolean): string {

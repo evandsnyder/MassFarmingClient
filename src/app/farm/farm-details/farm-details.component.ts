@@ -12,14 +12,13 @@ import { Weekday } from 'src/app/_interface/weekday.model';
 })
 export class FarmDetailsComponent implements OnInit {
   public farm: Farm;
+  public loaded: boolean = false;
 
   constructor(private repository: RepositoryService, private router: Router,
     private activeRoute: ActivatedRoute, private errorHandler: ErrorHandlerService) { }
 
   ngOnInit(): void {
     this.getFarmDetails();
-
-
   }
 
   private getFarmDetails = () => {
@@ -32,6 +31,7 @@ export class FarmDetailsComponent implements OnInit {
         this.farm.schedules.sort((a, b) => {
           return a.dayOfWeek > b.dayOfWeek ? 1:-1
         })
+        this.loaded = true;
       },
         (error) => {
           this.errorHandler.handleError(error);
@@ -45,5 +45,10 @@ export class FarmDetailsComponent implements OnInit {
   public formatTime(time: string): string {
     let hour: number = +time.slice(0, 2);
     return `${hour > 12 ? hour - 12 : hour}:${time.slice(2)} ${hour > 12 ? "pm" : "am"}`;
+  }
+
+  public redirectToEditFarm(id: string) {
+    let url: string = `/farms/edit/${id}`
+    this.router.navigate([url]);
   }
 }

@@ -1,13 +1,51 @@
 <section fxLayout="column">
-    <button mat-raised-button (click)="redirectToCreateFarm()" color="primary">
-        Add New Farm
-    </button>
+    <div fxLayout="row">
+        <!-- FILTERING SECTION -->
+        <mat-form-field class="filter-form-field" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" class="filter-input" [(ngModel)]="stringFilter" placeholder="Search..." />
+        </mat-form-field>
+        <mat-form-field class="filter-form-field" appearance="outline" id="type">
+            <mat-label *ngIf="!availableCategories" class="loading">
+                <span>Loading...</span>
+                <mat-spinner class="spinner" diameter="20"></mat-spinner>
+            </mat-label>
+            <mat-label *ngIf="availableCategories">Farm Types</mat-label>
+            <mat-select class="filter-mat-select" [formControl]="selectControl" multiple>
+                <mat-select-trigger>
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let value of selectControl.value" [removable]="true"
+                            (removed)="removeSelection(value)">
+                            {{findFarmCategory(value)}} <mat-icon matChipRemove>cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                </mat-select-trigger>
+                <mat-option *ngFor="let item of this.availableCategories" (onSelectionChange)="change($event)"
+                    [value]="item.farmTypeId">{{item.category}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div fxLayout="column" fxLayoutAlign="start">
+            <div fxLayout="column wrap" fxLayoutAlign="space-evenly" class="btn-grp">
+                <button mat-flat-button color="primary" (click)="applyFilter()" class="filter-button">Apply
+                    Filter</button>
+                <button mat-flat-button color="primary" (click)="clearFilter()" class="filter-button">Clear
+                    Filter</button>
+            </div>
+        </div>
+    </div>
     <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-        <mat-selection-list [multiple]="false">
-            <mat-list-option *ngFor="let farm of farms" (click)="moveToFarm(farm)">
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                    <h2>{{farm.farmName}}</h2>
-                    <mat-button (click)="redirectToDetails(farm.farmId)"><mat-icon>launch</mat-icon></mat-button>
+        <mat-selection-list [multiple]="false" id="farm-list">
+            <mat-list-option *ngFor="let farm of visibleFarms" (click)="moveToFarm(farm)" id="{{farm.farmId}}">
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="column wrap">
+                        <h2>{{farm.farmName}}</h2>
+                    </div>
+                    <div fxLayout="column">
+                        <mat-button (click)="redirectToDetails(farm.farmId)">
+                            <mat-icon>launch</mat-icon>
+                        </mat-button>
+                    </div>
                 </div>
                 <div fxLayout="column wrap">
                     <span>{{farm.address.address1}}</span>
@@ -16,8 +54,8 @@
             </mat-list-option>
         </mat-selection-list>
         <agm-map [latitude]="location.latitude" [longitude]="location.longitude" [(zoom)]="location.zoom">
-            <agm-marker *ngFor="let farm of farms" [latitude]="farm.address.latitude"
-                [longitude]="farm.address.longitude"></agm-marker>
+            <agm-marker *ngFor="let farm of visibleFarms" [latitude]="farm.address.latitude"
+                [longitude]="farm.address.longitude" color="primary" [markerClickable]="true" (markerClick)="focusFarm(farm)"></agm-marker>
         </agm-map>
     </div>
 </section>

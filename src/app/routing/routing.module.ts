@@ -6,7 +6,7 @@ import { ServerErrorComponent } from '../error-pages/server-error/server-error.c
 
 
 const routes : Routes = [
-  {path: '', redirectTo: '/farm', pathMatch: 'full' },
+  {path: '', redirectTo: '/farms', pathMatch: 'full' },
   {path: 'farms', loadChildren: () => import('./../farm/farm.module').then(f => f.FarmModule)},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404', pathMatch: 'full'},

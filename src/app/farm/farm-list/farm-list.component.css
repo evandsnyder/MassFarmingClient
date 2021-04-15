@@ -3,7 +3,7 @@ button {
 }
 
 agm-map {
-    height: 500px;
+    height: 68em;
     width: 100%;
     border-top: 1px solid black;
     border-right: 1px solid black;
@@ -27,4 +27,37 @@ mat-list-option {
 
 .mat-list:last-child {
     border-bottom: none !important;
+}
+
+#farm-list {
+    max-height: 68em;
+    overflow: auto;
+}
+
+.filter-form-field {
+    width: 33%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.filter-input {
+    height: 50px;
+}
+
+.mat-chip-list-wrapper {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+}
+
+.filter-mat-select {
+    height: 50px;
+}
+
+.filter-button {
+    margin-left: 10px;
+}
+
+.btn-grp{
+    height: 80%;
 }

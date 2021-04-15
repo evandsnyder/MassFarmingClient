@@ -1,7 +1,6 @@
-import { Component, NgZone, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { ErrorHandlerService } from 'src/app/shared/error-handler.service';
 import { RepositoryService } from 'src/app/shared/repository.service';
 import { FarmType } from 'src/app/_interface/farmType.model';
 import { MatOptionSelectionChange } from '@angular/material/core';
@@ -9,7 +8,6 @@ import { TimePickerComponent } from 'src/app/components/time-picker/time-picker.
 import { Schedule } from 'src/app/_interface/schedule.model';
 import { FarmForCreation } from 'src/app/_interface/farmForCreation.model';
 import { MapsAPILoader } from '@agm/core';
-import { GoogleMapsAPIWrapper } from '@agm/core';
 import { Location } from '@angular/common';
 
 declare var google: any;
@@ -60,9 +58,6 @@ export class FarmCreateComponent implements OnInit {
   private geocoder: any;
 
   constructor(private repository: RepositoryService
-    , private errorHandler: ErrorHandlerService
-    , private wrapper: GoogleMapsAPIWrapper
-    , private zone: NgZone
     , public mapsApiLoader: MapsAPILoader
     , private location: Location) {
     this.mapsApiLoader = mapsApiLoader;
@@ -80,7 +75,6 @@ export class FarmCreateComponent implements OnInit {
 
   public createNewFarm = () => {
     this.generateNewFarm();
-
   }
 
   private async generateNewFarm() {
@@ -101,9 +95,6 @@ export class FarmCreateComponent implements OnInit {
     let loc = await this.getGeocode(full_address);
     lat = loc.lat;
     lon = loc.lon;
-
-    console.log(lat)
-    console.log(lon)
 
     let newFarm: FarmForCreation = {
       farmName: this.farmName.value,
@@ -154,7 +145,6 @@ export class FarmCreateComponent implements OnInit {
         }
       })
     })
-
   }
 
 

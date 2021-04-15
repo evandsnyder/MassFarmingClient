@@ -11,6 +11,7 @@ input::-webkit-inner-spin-button{
 
 .time-select {
     width: 65px;
+    margin-left: 10px;
 }
 
 .picker-form-field .mat-form-field-wrapper {
@@ -42,4 +43,13 @@ input::-webkit-inner-spin-button{
 
 .mat-button-toggle:active {
     color: primary;
+}
+
+.time-label {
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+.time-toggle {
+    margin-left: 10px;
 }

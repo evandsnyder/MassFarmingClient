@@ -10,10 +10,11 @@ import { ComponentsModule } from '../components/components.module';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FarmEditComponent } from './farm-edit/farm-edit.component';
 
 
 @NgModule({
-  declarations: [FarmListComponent, FarmDetailsComponent, FarmCreateComponent],
+  declarations: [FarmListComponent, FarmDetailsComponent, FarmCreateComponent, FarmEditComponent],
   imports: [
     CommonModule,
     FarmRoutingModule,
