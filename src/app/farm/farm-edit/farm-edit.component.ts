@@ -177,13 +177,13 @@ export class FarmEditComponent implements OnInit {
   }
 
   public formIsInvalid(): boolean {
-    return (this.farmName.invalid && this.farmName.value == '') ||
-      (this.ownerName.invalid && this.ownerName.value == '') ||
-      (this.contactEmail.invalid && this.contactEmail.value == '') ||
-      (this.address1.invalid && this.address1.value == '') ||
-      (this.city.invalid && this.city.value == '') ||
-      (this.state.invalid && this.state.value == '') ||
-      (this.zip.invalid && this.zip.value == '');
+    return (this.farmName.invalid || this.farmName.value == '') ||
+      (this.ownerName.invalid || this.ownerName.value == '') ||
+      (this.contactEmail.invalid || this.contactEmail.value == '') ||
+      (this.address1.invalid || this.address1.value == '') ||
+      (this.city.invalid || this.city.value == '') ||
+      (this.state.invalid || this.state.value == '') ||
+      (this.zip.invalid || this.zip.value == '');
   }
 
   public async saveFarm() {

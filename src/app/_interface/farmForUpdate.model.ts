@@ -1,5 +1,4 @@
 import { Address } from "./address.model";
-import { FarmType } from "./farmType.model";
 import { IsAForCreation } from "./isAForCreation.model";
 import { Schedule } from "./schedule.model";
 
